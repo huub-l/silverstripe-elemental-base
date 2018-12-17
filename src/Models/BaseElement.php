@@ -54,22 +54,6 @@ class BaseElement extends ElementalBase
                 $fields->removeByName('Options');
             }
 
-            $use_submenu = $this->config()->get('use_submenu');
-
-            if ($use_submenu) {
-                $fields->removeByName('ShowInMenu');
-                $fields->replaceField(
-                    'MenuTitle',
-                    TextCheckboxGroupField::create(
-                        TextField::create('MenuTitle', _t(__CLASS__ . '.db_MenuTitle', 'MenuTitle')),
-                        CheckboxField::create('ShowInMenu', _t(__CLASS__ . '.db_ShowInMenu', 'Show in submenu'))
-                    )
-                        ->setName('ShowInMenuTitle')
-                );
-            } else {
-                $fields->removeByName('ShowInMenu');
-                $fields->removeByName('MenuTitle');
-            }
 
         });
 
@@ -93,15 +77,6 @@ class BaseElement extends ElementalBase
         }
     }
 
-    public function getMenuTitle() {
-        if ($this->dbObject("MenuTitle"))
-            return $this->dbObject("MenuTitle");
-        return $this->Title;
-    }
-
-    public function getAnchorTitle() {
-        return $this->getMenuTitle();
-    }
 
 
 }
