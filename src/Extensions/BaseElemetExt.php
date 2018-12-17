@@ -19,14 +19,15 @@ class BaseElemetExt extends DataExtension {
     private static $db= [
         'BackgroundColour' => 'Text',
         'EnableBackgroundColour' => 'Boolean',
-        'BackgroundPosition'=>'Enum("left top,left center,left bottom,right top,right center,right bottom,center top,center center,center bottom","left top")',
+        'BackgroundPosition' => 'Enum("left top,left center,left bottom,right top,right center,right bottom,center top,center center,center bottom","left top")',
         'BackgroundParalax'=>'Boolean',
         'MarginTop' => 'Boolean',
         'MarginBottom' => 'Boolean',
         'AddBorderBottom' => 'Boolean',
         'BorderBottomColour' => 'Text',
         'RemoveBottomPadding' => 'Boolean',
-        'RemoveTopPadding' => 'Boolean'
+        'RemoveTopPadding' => 'Boolean',
+        'AOSEffect' => 'Enum("---,fade-up","---")'
     ];
     
     private static $has_one = [
@@ -38,8 +39,8 @@ class BaseElemetExt extends DataExtension {
     ];
     
     public function updateCMSFields(FieldList $fields) {
-        
-        
+
+        $fields->removeByName('AOSEffect');
         $fields->removeByName('MarginTop');
         $fields->removeByName('MarginBottom');
         $fields->removeByName('RemoveTopPadding');
@@ -55,14 +56,17 @@ class BaseElemetExt extends DataExtension {
         
         $fields->addFieldsToTab('Root.Settings', array(
             TabSet::create('SettingsTabs',
-                Tab::create('CssClass',
-                    TextField::create('ExtraClass','Custom CSS classes')
-                ),
+//                Tab::create('CssClass',
+//                    TextField::create('ExtraClass','Custom CSS classes')
+//                ),
                 Tab::create('MarginPadding', 
                     CheckboxField::create('MarginTop', 'Add margin to the top of this element?'),
                     CheckboxField::create('MarginBottom', 'Add margin to the bottom of this element?'),
                     CheckboxField::create('RemoveTopPadding', 'Remove top padding?'),
                     CheckboxField::create('RemoveBottomPadding', 'Remove bottom padding?')
+                ),
+                Tab::create('AOS',
+                    DropdownField::create('AOSEffect', 'AOS Effect', $this->owner->dbObject('AOSEffect')->enumValues(),'---')
                 ),
                 Tab::create('BackgroundColor', 
                     CheckboxField::create('EnableBackgroundColour','Enable Background Colour?'),
@@ -72,13 +76,13 @@ class BaseElemetExt extends DataExtension {
                         array(
                             '#fff' => '#fff',
                             '#000' => '#000',
-                            '#ff6c00' => '#ff6c00',
-                            '#83c909' => '#83c909',
-                            '#43adff' => '#43adff',
+//                            '#ff6c00' => '#ff6c00',
+//                            '#83c909' => '#83c909',
+                            '#11A982' => '#11A982',
                             '#ff5fa3' => '#ff5fa3',
                             '#fc9e38' => '#fc9e38',
-                            '#00b3c1' => '#00b3c1',
-                            '#ff276e' => '#ff276e'
+//                            '#00b3c1' => '#00b3c1',
+//                            '#ff276e' => '#ff276e'
                         )
                     )
                 ),

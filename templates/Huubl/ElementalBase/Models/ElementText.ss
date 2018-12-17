@@ -1,4 +1,6 @@
-<section class="section bg-white aos-init aos-animate $VariantClasses" data-aos="fade-up" id="$Anchor">
+<%--$VariantClasses--%>
+
+<section class="section bg-white aos-init aos-animate" <% if $AOSEffect !== '---' %> data-aos="$AOSEffect" <% end_if %> id="$Anchor">
     <div class="container">
         <div class="row section-heading justify-content-center">
             <div class="col-md-8 text-center">
@@ -13,3 +15,5 @@
         </div>
     </div>
 </section>
+
+

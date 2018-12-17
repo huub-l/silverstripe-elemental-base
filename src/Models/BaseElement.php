@@ -21,9 +21,7 @@ class BaseElement extends ElementalBase
 
     private static $db = [
         'Variant' => 'Varchar(255)',
-        'Options' => 'Varchar(255)',
-        'ShowInMenu' => 'Boolean',
-        'MenuTitle' => 'Varchar(255)'
+        'Options' => 'Varchar(255)'
     ];
 
     public function getCMSFields()
