@@ -1,0 +1,7 @@
+---
+Name: huubl-elemental-base
+---
+DNADesign\Elemental\Models\BaseElement:
+  extensions:
+    - Huubl\ElementalBase\Extensions\BaseElemetExt
+

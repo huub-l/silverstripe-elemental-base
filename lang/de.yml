@@ -1,0 +1,27 @@
+de:
+  DNADesign\Elemental\Models\BaseElement:
+    Author: Autor
+    BlockType: Element
+    CUSTOM_STYLES: 'Stil auswählen'
+    ExtraCssClassesLabel: 'Extra CSS Klassen'
+    ExtraCssClassesPlaceholder: ''
+    MainTabLabel: Inhalt
+    Modified: Verändert
+    PLURALNAME: Elemente
+    PLURALS:
+      one: 'Ein Element'
+      other: '{count} Elemente'
+    Published: Publiziert
+    Record: Datensatz
+    SINGULARNAME: Element
+    STYLE: 'Stil'
+    ShowTitleLabel: Angezeigt
+    TitleLabel: 'Titel (angezeigt wenn ausgewählt)'
+  ATW\ElementalBase\Models\BaseElement:
+    VARIANT: "Variante"
+    CHOOSE_VARIANT: "Variante auswählen"
+    db_MenuTitle: "Menütitel"
+    db_ShowInMenu: "Im Menü anzeigen"
+  ATW\ElementalBase\Extensions\MenuPageExtension:
+    MENU: "Menü"
+    CHOOSE_MENU: "Menü auswählen"

@@ -1,0 +1,4 @@
+nl:
+  ATW\ElementalBase\Models\BaseElement:
+    VARIANT: "Variant"
+    CHOOSE_VARIANT: "Kies variant"
