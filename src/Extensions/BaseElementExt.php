@@ -60,12 +60,15 @@ class BaseElementExt extends DataExtension {
 
     public function updateCMSFields(FieldList $fields) {
 
+<<<<<<< HEAD:src/Extensions/BaseElementExt.php
 
         $colors = $this->owner->config()->get('colors');
 
 
 //        $colors = yaml_parse($colorsYML);
 
+=======
+>>>>>>> d1e7adcc6db7c1627e21313580c7007524a7ec53:src/Extensions/BaseElemetExt.php
         $fields->removeByName('AOSEffect');
         $fields->removeByName('MarginTop');
         $fields->removeByName('MarginBottom');
@@ -85,6 +88,7 @@ class BaseElementExt extends DataExtension {
 //                Tab::create('CssClass',
 //                    TextField::create('ExtraClass','Custom CSS classes')
 //                ),
+<<<<<<< HEAD:src/Extensions/BaseElementExt.php
 //                Tab::create('MarginPadding',
 //                    CheckboxField::create('MarginTop', 'Add margin to the top of this element?'),
 //                    CheckboxField::create('MarginBottom', 'Add margin to the bottom of this element?'),
@@ -93,14 +97,38 @@ class BaseElementExt extends DataExtension {
 //                ),
                 Tab::create('AOS',
                     DropdownField::create('AOSEffect', 'AOS Effect', $this->owner->dbObject('AOSEffect')->enumValues(),'---')
+=======
+                Tab::create('MarginPadding', 
+                    CheckboxField::create('MarginTop', 'Add margin to the top of this element?'),
+                    CheckboxField::create('MarginBottom', 'Add margin to the bottom of this element?'),
+                    CheckboxField::create('RemoveTopPadding', 'Remove top padding?'),
+                    CheckboxField::create('RemoveBottomPadding', 'Remove bottom padding?')
+>>>>>>> d1e7adcc6db7c1627e21313580c7007524a7ec53:src/Extensions/BaseElemetExt.php
+                ),
+                Tab::create('AOS',
+                    DropdownField::create('AOSEffect', 'AOS Effect', $this->owner->dbObject('AOSEffect')->enumValues(),'---')
                 ),
                 Tab::create('BackgroundColor', 
                     CheckboxField::create('EnableBackgroundColour','Enable Background Colour?'),
                     ColorPaletteField::create(
                         'BackgroundColour',
                         'Background Colour',
+<<<<<<< HEAD:src/Extensions/BaseElementExt.php
                         $colors
 
+=======
+                        array(
+                            '#fff' => '#fff',
+                            '#000' => '#000',
+//                            '#ff6c00' => '#ff6c00',
+//                            '#83c909' => '#83c909',
+                            '#11A982' => '#11A982',
+                            '#ff5fa3' => '#ff5fa3',
+                            '#fc9e38' => '#fc9e38',
+//                            '#00b3c1' => '#00b3c1',
+//                            '#ff276e' => '#ff276e'
+                        )
+>>>>>>> d1e7adcc6db7c1627e21313580c7007524a7ec53:src/Extensions/BaseElemetExt.php
                     )
                 ),
                 Tab::create('BackgroundImage',
