@@ -1,6 +1,7 @@
 <?php
 
 namespace Huubl\ElementalBase\Extensions;
+
 use SilverStripe\Forms\FieldList;
 use SilverStripe\ORM\DataExtension;
 use Heyday\ColorPalette\Fields\ColorPaletteField;
@@ -11,22 +12,24 @@ use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\Tab;
 use SilverStripe\Forms\TabSet;
 use SilverStripe\Forms\TextField;
+use SilverStripe\Core\Config\Configurable;
 
-class BaseElemetExt extends DataExtension {
+class BaseElementExt extends DataExtension {
     
     private static $controller_template = 'ElementHolder';
     
     private static $db= [
         'BackgroundColour' => 'Text',
         'EnableBackgroundColour' => 'Boolean',
-        'BackgroundPosition'=>'Enum("left top,left center,left bottom,right top,right center,right bottom,center top,center center,center bottom","left top")',
+        'BackgroundPosition' => 'Enum("left top,left center,left bottom,right top,right center,right bottom,center top,center center,center bottom","left top")',
         'BackgroundParalax'=>'Boolean',
         'MarginTop' => 'Boolean',
         'MarginBottom' => 'Boolean',
         'AddBorderBottom' => 'Boolean',
         'BorderBottomColour' => 'Text',
         'RemoveBottomPadding' => 'Boolean',
-        'RemoveTopPadding' => 'Boolean'
+        'RemoveTopPadding' => 'Boolean',
+        'AOSEffect' => 'Enum("---,fade-up","---")'
     ];
     
     private static $has_one = [
@@ -36,10 +39,34 @@ class BaseElemetExt extends DataExtension {
     private static $owns = [
         'BackgroundImage'
     ];
-    
+
+    public function myfruit()
+    {
+        $fruits = array( '0'=>'apple', '1'=>'pear', '2'=>'grape', '3'=>'peach' );
+        $fruitlist = new ArrayList();
+        foreach($fruits as $item) {
+            $fruitlist->push(
+                new ArrayData(array('fruit' => $item))
+            );
+        }
+        return $fruitlist;
+    }
+
+    public function grid($col)
+    {
+        return ($this->owner->config()->get('grid')) * ($col / 12);
+    }
+
+
     public function updateCMSFields(FieldList $fields) {
-        
-        
+
+
+        $colors = $this->owner->config()->get('colors');
+
+
+//        $colors = yaml_parse($colorsYML);
+
+        $fields->removeByName('AOSEffect');
         $fields->removeByName('MarginTop');
         $fields->removeByName('MarginBottom');
         $fields->removeByName('RemoveTopPadding');
@@ -55,31 +82,25 @@ class BaseElemetExt extends DataExtension {
         
         $fields->addFieldsToTab('Root.Settings', array(
             TabSet::create('SettingsTabs',
-                Tab::create('CssClass',
-                    TextField::create('ExtraClass','Custom CSS classes')
-                ),
-                Tab::create('MarginPadding', 
-                    CheckboxField::create('MarginTop', 'Add margin to the top of this element?'),
-                    CheckboxField::create('MarginBottom', 'Add margin to the bottom of this element?'),
-                    CheckboxField::create('RemoveTopPadding', 'Remove top padding?'),
-                    CheckboxField::create('RemoveBottomPadding', 'Remove bottom padding?')
+//                Tab::create('CssClass',
+//                    TextField::create('ExtraClass','Custom CSS classes')
+//                ),
+//                Tab::create('MarginPadding',
+//                    CheckboxField::create('MarginTop', 'Add margin to the top of this element?'),
+//                    CheckboxField::create('MarginBottom', 'Add margin to the bottom of this element?'),
+//                    CheckboxField::create('RemoveTopPadding', 'Remove top padding?'),
+//                    CheckboxField::create('RemoveBottomPadding', 'Remove bottom padding?')
+//                ),
+                Tab::create('AOS',
+                    DropdownField::create('AOSEffect', 'AOS Effect', $this->owner->dbObject('AOSEffect')->enumValues(),'---')
                 ),
                 Tab::create('BackgroundColor', 
                     CheckboxField::create('EnableBackgroundColour','Enable Background Colour?'),
                     ColorPaletteField::create(
                         'BackgroundColour',
                         'Background Colour',
-                        array(
-                            '#fff' => '#fff',
-                            '#000' => '#000',
-                            '#ff6c00' => '#ff6c00',
-                            '#83c909' => '#83c909',
-                            '#43adff' => '#43adff',
-                            '#ff5fa3' => '#ff5fa3',
-                            '#fc9e38' => '#fc9e38',
-                            '#00b3c1' => '#00b3c1',
-                            '#ff276e' => '#ff276e'
-                        )
+                        $colors
+
                     )
                 ),
                 Tab::create('BackgroundImage',
@@ -92,17 +113,7 @@ class BaseElemetExt extends DataExtension {
                     ColorPaletteField::create(
                         'BorderBottomColour',
                         'Bottom Border Colour',
-                        array(
-                            'White' => '#fff',
-                            'Black' => '#000',
-                            'Orange' => '#ff6c00',
-                            'Green' => '#83c909',
-                            'Blue' => '#43adff',
-                            'Pink' => '#ff5fa3',
-                            'LightOrange' => '#fc9e38',
-                            'OffBlue' => '#00b3c1',
-                            'Purple' => '#ff276e'
-                        )
+                        $colors
                     )    
                 )
             )

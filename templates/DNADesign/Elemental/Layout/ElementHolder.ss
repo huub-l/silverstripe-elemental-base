@@ -3,4 +3,4 @@
         $Element
     </div>
 </section>
-<% require css("huubl/silverstripe-elemental-base: css/baseElement.css") %>
+<%--<% require css("huubl/silverstripe-elemental-base: css/baseElement.css") %>--%>

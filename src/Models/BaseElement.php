@@ -21,15 +21,13 @@ class BaseElement extends ElementalBase
 
     private static $db = [
         'Variant' => 'Varchar(255)',
-        'Options' => 'Varchar(255)',
-        'ShowInMenu' => 'Boolean',
-        'MenuTitle' => 'Varchar(255)'
+        'Options' => 'Varchar(255)'
     ];
 
     public function getCMSFields()
     {
         $this->beforeUpdateCMSFields(function (FieldList $fields) {
-            $config = $this->getPage()->config()->get($this->ClassName);
+            $config = $this->owner->config()->get($this->ClassName);
             $variants = $config["variants"] ?? [];
             $variants_name = $config["variants_name"] ?? _t(__CLASS__.'.VARIANT', 'Variants');
 
