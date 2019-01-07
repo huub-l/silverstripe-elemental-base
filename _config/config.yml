@@ -4,11 +4,6 @@ Name: huubl-elemental-base
 DNADesign\Elemental\Models\BaseElement:
   extensions:
     - Huubl\ElementalBase\Extensions\BaseElementExt
-  Huubl\Models\BaseElement:
-    variants:
-      light: 'Wit'
-      dark: 'Zwart'
-    variants_name: 'Tekst Kleur'
 Huubl\ElementalBase\Extensions\BaseElementExt:
   colors:
     '#ffffff' : '#ffffff'
@@ -17,3 +12,5 @@ Huubl\ElementalBase\Extensions\BaseElementExt:
     '#ff5fa3' : '#ff5fa3'
     '#fc9e38' : '#fc9e38'
   grid: 24
+
+

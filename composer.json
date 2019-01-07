@@ -1,6 +1,5 @@
 {
     "name": "huubl/silverstripe-elemental-base",
-    "description": "Alternate elemental base",
     "description": "add more options to the base element",
     "keywords": [
         "silverstripe",
@@ -18,11 +17,11 @@
         }
     ],
     "require": {
-        "dnadesign/silverstripe-elemental": "*",
-        "dynamic/silverstripe-elemental-baseobject": "*",
-        "silverstripe/vendor-plugin": "*",
-        "sheadawson/silverstripe-linkable": "*",
-        "symbiote/silverstripe-gridfieldextensions": "*",
+        "dnadesign/silverstripe-elemental": "^2@dev || ^3@dev",
+        "dynamic/silverstripe-elemental-baseobject": "^1@dev",
+        "silverstripe/vendor-plugin": "^1@dev",
+        "sheadawson/silverstripe-linkable": "^2@dev",
+        "symbiote/silverstripe-gridfieldextensions": "^3.1@dev",
         "heyday/silverstripe-colorpalette": "*"
     },
     "require-dev": {
@@ -31,10 +30,5 @@
     },
     "config": {
         "process-timeout": 600
-    },
-    "extra": {
-        "expose": [
-            "css"
-        ]
     }
 }
