@@ -1,6 +1,11 @@
 ---
 Name: huubl-elemental-base
+#Before: elemental
 ---
+
+#DNADesign\Elemental\Models\BaseElement:
+#  module_priority:
+#    - huubl\silverstripe-elemental-base
 DNADesign\Elemental\Models\BaseElement:
   extensions:
     - Huubl\ElementalBase\Extensions\BaseElementExt
@@ -12,5 +17,3 @@ Huubl\ElementalBase\Extensions\BaseElementExt:
     '#ff5fa3' : '#ff5fa3'
     '#fc9e38' : '#fc9e38'
   grid: 24
-
-
