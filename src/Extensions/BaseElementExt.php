@@ -17,40 +17,32 @@ use SilverStripe\Core\Config\Configurable;
 class BaseElementExt extends DataExtension {
     
     private static $controller_template = 'ElementHolder';
-    
+
     private static $db= [
         'BackgroundColour' => 'Text',
         'EnableBackgroundColour' => 'Boolean',
         'BackgroundPosition' => 'Enum("left top,left center,left bottom,right top,right center,right bottom,center top,center center,center bottom","left top")',
         'BackgroundParalax'=>'Boolean',
+        'BackgroundRepeat'=>'Boolean',
         'MarginTop' => 'Boolean',
         'MarginBottom' => 'Boolean',
         'AddBorderBottom' => 'Boolean',
         'BorderBottomColour' => 'Text',
+        'BorderBottomStyle' => 'Enum("--,thema","--")',
         'RemoveBottomPadding' => 'Boolean',
         'RemoveTopPadding' => 'Boolean',
-        'AOSEffect' => 'Enum("---,fade-up","---")'
+        'AOSEffect' => 'Enum("---,fade-up","---")',
+        'Mascotte' => 'Enum("---,sem-lente-sem,sem-lente-lente,fonzy-leaning-paddle,fonzy-walking,fonzy-waves,fonzy-swim-fins-waves,fonzy-swim-fins-walking,fonzy-sporting,fonzy-guitar,fonzy-exited,fonzy-chef,fonzy-pyjamas","---")',
+        'MascottePosition' => 'Enum("mascotte-right mascotte-bottom,mascotte-right mascotte-top,mascotte-left mascotte-bottom,mascotte-left mascotte-top","mascotte-right mascotte-bottom")'
     ];
-    
+
     private static $has_one = [
         'BackgroundImage' => Image::class
     ];
-    
+
     private static $owns = [
         'BackgroundImage'
     ];
-
-    public function myfruit()
-    {
-        $fruits = array( '0'=>'apple', '1'=>'pear', '2'=>'grape', '3'=>'peach' );
-        $fruitlist = new ArrayList();
-        foreach($fruits as $item) {
-            $fruitlist->push(
-                new ArrayData(array('fruit' => $item))
-            );
-        }
-        return $fruitlist;
-    }
 
     public function grid($col)
     {
@@ -63,9 +55,6 @@ class BaseElementExt extends DataExtension {
 
         $colors = $this->owner->config()->get('colors');
 
-
-//        $colors = yaml_parse($colorsYML);
-
         $fields->removeByName('AOSEffect');
         $fields->removeByName('MarginTop');
         $fields->removeByName('MarginBottom');
@@ -76,15 +65,19 @@ class BaseElementExt extends DataExtension {
         $fields->removeByName('BackgroundColour');
         $fields->removeByName('BackgroundImage');
         $fields->removeByName('BackgroundPosition');
+        $fields->removeByName('BackgroundRepeat');
         $fields->removeByName('BackgroundParalax');
         $fields->removeByName('AddBorderBottom');
         $fields->removeByName('BorderBottomColour');
-        
+        $fields->removeByName('BorderBottomStyle');
+        $fields->removeByName('Mascotte');
+        $fields->removeByName('MascottePosition');
+
         $fields->addFieldsToTab('Root.Settings', array(
             TabSet::create('SettingsTabs',
-//                Tab::create('CssClass',
-//                    TextField::create('ExtraClass','Custom CSS classes')
-//                ),
+                Tab::create('CssClass',
+                    TextField::create('ExtraClass','Custom CSS classes')
+                ),
 //                Tab::create('MarginPadding',
 //                    CheckboxField::create('MarginTop', 'Add margin to the top of this element?'),
 //                    CheckboxField::create('MarginBottom', 'Add margin to the bottom of this element?'),
@@ -94,7 +87,7 @@ class BaseElementExt extends DataExtension {
                 Tab::create('AOS',
                     DropdownField::create('AOSEffect', 'AOS Effect', $this->owner->dbObject('AOSEffect')->enumValues(),'---')
                 ),
-                Tab::create('BackgroundColor', 
+                Tab::create('BackgroundColor',
                     CheckboxField::create('EnableBackgroundColour','Enable Background Colour?'),
                     ColorPaletteField::create(
                         'BackgroundColour',
@@ -106,15 +99,21 @@ class BaseElementExt extends DataExtension {
                 Tab::create('BackgroundImage',
                     UploadField::create('BackgroundImage','Background Image'),
                     DropdownField::create('BackgroundPosition', 'Background Position', $this->owner->dbObject('BackgroundPosition')->enumValues(),'left top'),
-                    CheckboxField::create('BackgroundParalax','Turn background paralax on?')
+                    CheckboxField::create('BackgroundParalax','Turn background paralax on?'),
+                    CheckboxField::create('BackgroundRepeat','Background repeat?')
                 ),
-                Tab::create('Border', 
+                Tab::create('Border',
                     CheckboxField::create('AddBorderBottom', 'Add a border to the bottom of this element?'),
-                    ColorPaletteField::create(
-                        'BorderBottomColour',
-                        'Bottom Border Colour',
-                        $colors
-                    )    
+                    DropdownField::create('BorderBottomStyle', 'Border Stijl', $this->owner->dbObject('BorderBottomStyle')->enumValues(),'--')
+//                    ColorPaletteField::create(
+//                        'BorderBottomColour',
+//                        'Bottom Border Colour',
+//                        $colors
+//                    )
+                ),
+                Tab::create('AddMascotte',
+                    DropdownField::create('Mascotte', 'Kies mascotte', $this->owner->dbObject('Mascotte')->enumValues(),'---'),
+                    DropdownField::create('MascottePosition', 'Positie', $this->owner->dbObject('MascottePosition')->enumValues(),'mascotte-right mascotte-bottom')
                 )
             )
         ));
