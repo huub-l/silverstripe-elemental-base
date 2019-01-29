@@ -19,6 +19,8 @@ class BaseElementExt extends DataExtension {
     private static $controller_template = 'ElementHolder';
 
     private static $db= [
+        'TitleSize' => 'Enum("h1, h2, h3, h4, h5, h6", "h2")',
+        'TitleAlign' => 'Enum("left, center, right", "left")',
         'BackgroundColour' => 'Text',
         'EnableBackgroundColour' => 'Boolean',
         'BackgroundPosition' => 'Enum("left top,left center,left bottom,right top,right center,right bottom,center top,center center,center bottom","left top")',
@@ -47,6 +49,11 @@ class BaseElementExt extends DataExtension {
     public function grid($col)
     {
         return ($this->owner->config()->get('grid')) * ($col / 12);
+    }
+
+    public function padding()
+    {
+        return $this->owner->config()->get('padding');
     }
 
 
