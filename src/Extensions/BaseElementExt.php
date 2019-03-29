@@ -13,12 +13,13 @@ use SilverStripe\Forms\Tab;
 use SilverStripe\Forms\TabSet;
 use SilverStripe\Forms\TextField;
 use SilverStripe\Core\Config\Configurable;
+use SilverStripe\ORM\DataObject;
 
 class BaseElementExt extends DataExtension {
     
     private static $controller_template = 'ElementHolder';
 
-    private static $db= [
+    private static $db = [
         'TitleSize' => 'Enum("h1, h2, h3, h4, h5, h6", "h2")',
         'TitleAlign' => 'Enum("left, center, right", "left")',
         'BackgroundColour' => 'Text',
@@ -56,11 +57,30 @@ class BaseElementExt extends DataExtension {
         return $this->owner->config()->get('padding');
     }
 
+    public function test()
+    {
+//        $fields = BackgroundColour::get();
+
+        $colors = $this->owner->config()->get('colors');
+        $colorsClass = array();
+        foreach ($colors as $key => $value) array_push($colorsClass, $key);
+
+//        $players = parent::getCMSFields();
+
+
+//      return print_r($players);
+    }
+
 
     public function updateCMSFields(FieldList $fields) {
 
 
         $colors = $this->owner->config()->get('colors');
+
+        $colors = $this->owner->config()->get('colors');
+        $colorsClass = array();
+        foreach ($colors as $key => $value) array_push($colorsClass, $key);
+
 
         $fields->removeByName('AOSEffect');
         $fields->removeByName('MarginTop');
@@ -80,6 +100,8 @@ class BaseElementExt extends DataExtension {
         $fields->removeByName('Mascotte');
         $fields->removeByName('MascottePosition');
 
+
+
         $fields->addFieldsToTab('Root.Settings', array(
             TabSet::create('SettingsTabs',
                 Tab::create('CssClass',
@@ -95,7 +117,7 @@ class BaseElementExt extends DataExtension {
                     DropdownField::create('AOSEffect', 'AOS Effect', $this->owner->dbObject('AOSEffect')->enumValues(),'---')
                 ),
                 Tab::create('BackgroundColor',
-                    CheckboxField::create('EnableBackgroundColour','Enable Background Colour?'),
+                    CheckboxField::create('EnableBackgroundColour','Enable Background Colour?'  ),
                     ColorPaletteField::create(
                         'BackgroundColour',
                         'Background Colour',
