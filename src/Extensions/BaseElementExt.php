@@ -2,6 +2,7 @@
 
 namespace Huubl\ElementalBase\Extensions;
 
+use SilverStripe\Forms\CheckboxSetField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\ORM\DataExtension;
 use Heyday\ColorPalette\Fields\ColorPaletteField;
@@ -20,6 +21,7 @@ class BaseElementExt extends DataExtension {
     private static $controller_template = 'ElementHolder';
 
     private static $db = [
+
         'TitleSize' => 'Enum("h1, h2, h3, h4, h5, h6", "h2")',
         'TitleAlign' => 'Enum("left, center, right", "left")',
         'BackgroundColour' => 'Text',
@@ -35,8 +37,6 @@ class BaseElementExt extends DataExtension {
         'RemoveBottomPadding' => 'Boolean',
         'RemoveTopPadding' => 'Boolean',
         'AOSEffect' => 'Enum("---,fade-up","---")',
-        'Mascotte' => 'Enum("---,sem-lente-sem,sem-lente-lente,fonzy-leaning-paddle,fonzy-walking,fonzy-waves,fonzy-swim-fins-waves,fonzy-swim-fins-walking,fonzy-sporting,fonzy-guitar,fonzy-exited,fonzy-chef,fonzy-pyjamas","---")',
-        'MascottePosition' => 'Enum("mascotte-right mascotte-bottom,mascotte-right mascotte-top,mascotte-left mascotte-bottom,mascotte-left mascotte-top","mascotte-right mascotte-bottom")'
     ];
 
     private static $has_one = [
@@ -57,19 +57,19 @@ class BaseElementExt extends DataExtension {
         return $this->owner->config()->get('padding');
     }
 
-    public function test()
-    {
-//        $fields = BackgroundColour::get();
-
-        $colors = $this->owner->config()->get('colors');
-        $colorsClass = array();
-        foreach ($colors as $key => $value) array_push($colorsClass, $key);
-
-//        $players = parent::getCMSFields();
-
-
-//      return print_r($players);
-    }
+//    public function test()
+//    {
+////        $fields = BackgroundColour::get();
+//
+//        $colors = $this->owner->config()->get('colors');
+//        $colorsClass = array();
+//        foreach ($colors as $key => $value) array_push($colorsClass, $key);
+//
+////        $players = parent::getCMSFields();
+//
+//
+////      return print_r($players);
+//    }
 
 
     public function updateCMSFields(FieldList $fields) {
@@ -97,10 +97,6 @@ class BaseElementExt extends DataExtension {
         $fields->removeByName('AddBorderBottom');
         $fields->removeByName('BorderBottomColour');
         $fields->removeByName('BorderBottomStyle');
-        $fields->removeByName('Mascotte');
-        $fields->removeByName('MascottePosition');
-
-
 
         $fields->addFieldsToTab('Root.Settings', array(
             TabSet::create('SettingsTabs',
@@ -139,14 +135,11 @@ class BaseElementExt extends DataExtension {
 //                        'Bottom Border Colour',
 //                        $colors
 //                    )
-                ),
-                Tab::create('AddMascotte',
-                    DropdownField::create('Mascotte', 'Kies mascotte', $this->owner->dbObject('Mascotte')->enumValues(),'---'),
-                    DropdownField::create('MascottePosition', 'Positie', $this->owner->dbObject('MascottePosition')->enumValues(),'mascotte-right mascotte-bottom')
                 )
             )
         ));
         
         
     }
+
 }

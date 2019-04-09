@@ -5,22 +5,9 @@ DNADesign\Elemental\Models\BaseElement:
   extensions:
     - Huubl\ElementalBase\Extensions\BaseElementExt
 
-# add in elemens.yml
-
-# Huubl\ElementalBase\Extensions\BaseElementExt:
-#   colors:
-#     'white' : '#fff'
-#     'black' : '#333'
-#     'primary' : '#11A982'
-#     'secondary' : '#ff5fa3'
-#     'tertiary' : '#fc9e38'
-#   grid: 24
-#   padding: ''
-#
-# Huubl\ElementalBase\Extensions\BaseElementVariants:
-#   options:
-#     section--highlight: 'Highlight'
-#   options_name: 'Options'
-#   variants:
-#     section--imageleft: 'Image Left'
-#     section--imageright: 'Image Right'
+Dynamic\Elements\Flexslider\Elements\ElementSlideshow:
+  extensions:
+    -  Huubl\ElementalBase\Models\StyledTitle
+  title_alignment_variants:
+    text-left: 'left'
+    text-right: 'right'
